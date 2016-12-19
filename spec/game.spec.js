@@ -2,18 +2,27 @@
 import Game from 'app/models/game';
 
 describe('Game', function() {
+  var ticTacToe;
+  beforeEach(function() {
+    ticTacToe = new Game();
+  });
+
+  describe('Constructor testing', function() {
+    it('constructor exists', function() {
+      expect(Game).toBeFunction();
+    });
+  });
+
   describe('newGame', function() {
     it('should start a new game with an empty board', function() {
-      var game = new Game();
-      var emptyBoard = game.board;
+      var emptyBoard = ticTacToe.get("board");
       for (var key in emptyBoard) {
         expect(emptyBoard[key]).toBeNull();
       }
     }); //close it
 
     it('should have a board with 9 spaces', function() {
-      var game = new Game();
-      expect(Object.keys(game.board).length).toEqual(9);
+      expect(Object.keys(ticTacToe.get("board")).length).toEqual(9);
     }); //close it
   }); //close describe newGame function
 
