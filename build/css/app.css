@@ -71,7 +71,6 @@ textarea {
 }
 
 #board {
-  /*width: 100%;*/
   display: inline;
 }
 
@@ -87,12 +86,12 @@ textarea {
   height: 20vh;
   font-size: 10vh;
   text-align: center;
-  padding-top: 7%;
+  padding-top: 6vh;
 }
-
+/*
 .button {
   background-color: grey;
-}
+}*/
 
 .form {
   padding-left: 5%;

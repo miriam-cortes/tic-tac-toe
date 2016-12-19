@@ -1,5 +1,5 @@
 //game.spec.js
-import Game from 'game';
+import Game from 'app/models/game';
 
 describe('Game', function() {
   describe('newGame', function() {
