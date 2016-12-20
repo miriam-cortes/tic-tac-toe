@@ -65,10 +65,22 @@ You should strive to follow the BDD approach when building this application. Whe
 - We don't have any code coverage tool setup for this project, but if you have every function tested then it should be essentially 100%
 
 ### Wave Two:
-In this wave you will convert your existing Tic-Tac-Toe game code into a Backbone Model and create a Backbone View for rendering and interacting with that model.
+In this wave, we will design the framework of our Backbone application. Then, using this framework we create for ourselves, we will begin by implementing the front-end of our Tic-Tac-Toe game using Backbone Views.
 
-#### Converting to Backbone Model
-More details forthcoming
+#### Scope
+We will not be completing the entire implementation of the Tic-Tac-Toe game in this wave. These are the requirements for what you should complete in this wave:
+
+1. Complete the _design_ (on paper, whiteboard and/or Trello) for **all** components in your Backbone game implementation  
+1. Create "stub" files and folders for all of these components in your application  
+1. Design the **user interface** for your Tic-Tac-Toe game (on paper, whiteboard and/or Trello)  
+1. Implement the user interface for your game in your application, using templates, "regular" HTML and CSS  
+1. Implement the framework for handling the **DOM Events** that your front-end will interact with. Note: By "framework" here, we mean determine what those DOM Events are and creating function "stubs" that will handle the actions that correspond with these events in the next wave.  
+
+Note: Don't start on the JS object to Model conversion until Wave three!
+
+#### Testing Requirements
+No additional requirements for this wave
+
 
 ### Wave Three:
 In this wave you'll connect the Backbone web application you created in the previous wave to an existing Rails API that has standard RESTful CRUD routes.

@@ -1,21 +1,25 @@
 //player.spec.js
-import Player from 'player'
+import Player from 'app/models/player'
 
 describe('Player', function() {
+  var player1;
+  var player2;
+  beforeEach(function() {
+    player1 = new Player({
+      name: "Mario"
+    });
+    player2 = new Player({
+      name: "Luigi"
+    });
+  })
   describe('name', function() {
     it('allows you to set a name to a player', function() {
-      var newPlayer = new Player();
-      newPlayer.name = "Mario"
-      expect(newPlayer.name).toEqual("Mario")
+      expect(player1.get("name")).toEqual("Mario");
     })// close it
 
     it('creates two distinct players', function() {
-      var mario = new Player();
-      mario.name = 'Mario';
-      var luigi = new Player();
-      luigi.name = 'Luigi';
-      expect(mario.name).toEqual("Mario")
-      expect(luigi.name).toEqual("Luigi")
+      expect(player1.get("name")).toEqual("Mario")
+      expect(player2.get("name")).toEqual("Luigi")
     })
   })//close describe name
 }) //close describe Player

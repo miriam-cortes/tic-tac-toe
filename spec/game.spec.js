@@ -1,170 +1,167 @@
 //game.spec.js
-import Game from 'game';
+import Game from 'app/models/game';
 
 describe('Game', function() {
+  var ticTacToe;
+  beforeEach(function() {
+    ticTacToe = new Game();
+  });
+
+  describe('Constructor testing', function() {
+    it('constructor exists', function() {
+      expect(Game).toBeFunction();
+    });
+  });
+
   describe('newGame', function() {
     it('should start a new game with an empty board', function() {
-      var game = new Game();
-      var emptyBoard = game.board;
+      var emptyBoard = ticTacToe.get("board");
       for (var key in emptyBoard) {
         expect(emptyBoard[key]).toBeNull();
       }
     }); //close it
 
     it('should have a board with 9 spaces', function() {
-      var game = new Game();
-      expect(Object.keys(game.board).length).toEqual(9);
+      expect( Object.keys(ticTacToe.get("board")).length ).toEqual(9);
     }); //close it
   }); //close describe newGame function
 
 
   describe('players', function() {
     it('should assign two players', function() {
-      var newGame = new Game();
-      var gamePlayers = newGame.players("Mario","Luigi");
-      expect(gamePlayers[0].name).toEqual("Mario");
-      expect(gamePlayers[1].name).toEqual("Luigi");
-      expect(gamePlayers[0].symbol).toEqual("X");
-      expect(gamePlayers[1].symbol).toEqual("O");
+      var gamePlayers = ticTacToe.players("Mario","Luigi");
+      expect(gamePlayers[0].get("name")).toEqual("Mario");
+      expect(gamePlayers[1].get("name")).toEqual("Luigi");
+      expect(gamePlayers[0].get("symbol")).toEqual("X");
+      expect(gamePlayers[1].get("symbol")).toEqual("O");
     });//close it
 
     it('should start on player one turn', function() {
-      var newGame = new Game();
-      var gamePlayers = newGame.players("Mario","Luigi");
-      expect(gamePlayers[0].turn).toEqual(true);
-      expect(gamePlayers[1].turn).toEqual(false);
+      var gamePlayers = ticTacToe.players("Mario","Luigi");
+      expect(gamePlayers[0].get("turn")).toEqual(true);
+      expect(gamePlayers[1].get("turn")).toEqual(false);
     });
 
     it('should have two player', function() {
-      var newGame = new Game();
-      var gamePlayers = newGame.players("Mario","Luigi");
+      var gamePlayers = ticTacToe.players("Mario","Luigi");
       expect(gamePlayers.length).toEqual(2);
     })
 
     it('should not be able to reset players', function() {
-      var newGame = new Game();
-      newGame.players("Mario","Luigi");
-      newGame.players("Peach","Bowser");
-      expect(newGame.allPlayers[0].name).toEqual("Mario");
-      expect(newGame.allPlayers[1].name).toEqual("Luigi");
+      var dudes = ticTacToe.players("Mario","Luigi");
+      var dudes = ticTacToe.players("Peach","Bowser");
+      expect(dudes[0].get("name")).toEqual("Mario");
+      expect(dudes[1].get("name")).toEqual("Luigi");
+
     })
   }); //close describe players
 
 
   describe('play', function() {
     it('should switch players turns', function() {
-      var newGame = new Game();
-      newGame.players("Mario","Luigi");
-      newGame.play(3);
-      expect(newGame.allPlayers[0].turn).toEqual(false);
-      expect(newGame.allPlayers[1].turn).toEqual(true);
+      var thePlayers = ticTacToe.players("Mario","Luigi");
+      ticTacToe.play(3);
+      expect(thePlayers[0].get("turn")).toEqual(false);
+      expect(thePlayers[1].get("turn")).toEqual(true);
     });
 
     it('should change the board with the play', function() {
-      var newGame = new Game();
-      newGame.players("Mario","Luigi");
-      newGame.play(3);
-      expect(newGame.board[3]).toEqual("X");
+      var thePlayers = ticTacToe.players("Mario","Luigi");
+      ticTacToe.play(3);
+      expect(ticTacToe.get("board")[3]).toEqual("X");
       for (var i=1; i < 10; i++) {
         if (i !== 3) {
-          expect(newGame.board[i]).toEqual(null);
+          expect(ticTacToe.get("board")[i]).toEqual(null);
         }
       };
     });
 
     it('should can track multiple players plays', function() {
-      var newGame = new Game();
-      newGame.players("Mario","Luigi");
-      newGame.play(3);
-      newGame.play(5);
+      var daPlayers = ticTacToe.players("Mario","Luigi");
+      ticTacToe.play(3);
+      ticTacToe.play(5);
 
-      expect(newGame.board[3]).toEqual("X");
-      expect(newGame.board[5]).toEqual("O");
+      expect(ticTacToe.get("board")[3]).toEqual("X");
+      expect(ticTacToe.get("board")[5]).toEqual("O");
       for (var i=1; i < 10; i++) {
         if (i !== 3 && i !== 5) {
-          expect(newGame.board[i]).toEqual(null);
+          expect(ticTacToe.get("board")[i]).toEqual(null);
         }
       };
     });
 
     it('should not let a player play a taken spot', function() {
-      var newGame = new Game();
-      newGame.players("Mario","Luigi");
-      newGame.play(3);
-      expect(newGame.board[3]).toEqual("X");
-      newGame.play(3);
-      expect(newGame.board[3]).toEqual("X");
+      var daPlayers = ticTacToe.players("Mario","Luigi");
+      ticTacToe.play(3);
+      expect(ticTacToe.get("board")[3]).toEqual("X");
+      ticTacToe.play(3);
+      expect(ticTacToe.get("board")[3]).toEqual("X");
 
-      expect(newGame.allPlayers[0].turn).toEqual(false);
-      expect(newGame.allPlayers[1].turn).toEqual(true);
+      expect(daPlayers[0].get("turn")).toEqual(false);
+      expect(daPlayers[1].get("turn")).toEqual(true);
     });
 
     it ('should set the winner', function() {
-      var newGame = new Game();
-      newGame.players("Mario","Luigi");
-      newGame.play(1); // player 1
-      newGame.play(4); // player 2
-      newGame.play(2); // player 1
-      newGame.play(5); // player 2
+      var daPlayers = ticTacToe.players("Mario","Luigi");
+      ticTacToe.play(1); // player 1
+      ticTacToe.play(4); // player 2
+      ticTacToe.play(2); // player 1
+      ticTacToe.play(5); // player 2
 
-      expect(newGame.allPlayers[0].winner).toEqual(false);
-      newGame.play(3); // player 1
-      expect(newGame.allPlayers[0].winner).toEqual(true);
-      expect(newGame.allPlayers[1].winner).toEqual(false);
+      expect(daPlayers[0].get("winner")).toEqual(false);
+      ticTacToe.play(3); // player 1
+      expect(daPlayers[0].get("winner")).toEqual(true);
+      expect(daPlayers[1].get("winner")).toEqual(false);
 
     });
 
     it('should not allow a play if there is a winner', function() {
-      var newGame = new Game();
-      newGame.players("Mario","Luigi");
-      newGame.play(1); // player 1
-      newGame.play(4); // player 2
-      newGame.play(2); // player 1
-      newGame.play(5); // player 2
-      newGame.play(3); // player 1
+      var daPlayers = ticTacToe.players("Mario","Luigi");
+      ticTacToe.play(1); // player 1
+      ticTacToe.play(4); // player 2
+      ticTacToe.play(2); // player 1
+      ticTacToe.play(5); // player 2
+      ticTacToe.play(3); // player 1
 
-      expect(function() {newGame.play(8)}).toThrow(new Error("The Game is Over"));
+      expect(function() {ticTacToe.play(8)}).toThrow(new Error("The Game is Over"));
     });
 
     it('should detect a tie', function() {
-      var newGame = new Game();
-      newGame.players("Mario","Luigi");
-      newGame.play(1); // player 1
-      newGame.play(2); // player 2
-      newGame.play(5); // player 1
-      newGame.play(3); // player 2
-      newGame.play(6); // player 1
-      newGame.play(4); // player 2
-      newGame.play(7); // player 1
-      newGame.play(9); // player 2
+      ticTacToe.players("Mario","Luigi");
+      ticTacToe.play(1); // player 1
+      ticTacToe.play(2); // player 2
+      ticTacToe.play(5); // player 1
+      ticTacToe.play(3); // player 2
+      ticTacToe.play(6); // player 1
+      ticTacToe.play(4); // player 2
+      ticTacToe.play(7); // player 1
+      ticTacToe.play(9); // player 2
 
-      expect(function() {newGame.play(8)}).toThrow(new Error("It's a tie! You both lose."));
+      expect(function() {ticTacToe.play(8)}).toThrow(new Error("It's a tie! You both lose."));
 
     })
   }); // close describe play
 
   describe('hasWon', function() {
     it('should return a symbol for the winner', function() {
-      var newGame = new Game();
-      newGame.players("Mario","Luigi");
-      newGame.play(1); // player 1
-      newGame.play(3); // player 2
-      newGame.play(9); // player 1
-      newGame.play(5); // player 2
-      newGame.play(7); // player 1
-      newGame.play(8); // player 2
-      newGame.play(4); // player 1
+      var daPlayers = ticTacToe.players("Mario","Luigi");
+      ticTacToe.play(1); // player 1
+      ticTacToe.play(3); // player 2
+      ticTacToe.play(9); // player 1
+      ticTacToe.play(5); // player 2
+      ticTacToe.play(7); // player 1
+      ticTacToe.play(8); // player 2
+      ticTacToe.play(4); // player 1
 
-      expect(newGame.hasWon()).toEqual(newGame.allPlayers[0].symbol);
+      expect(ticTacToe.hasWon()).toEqual(daPlayers[0].get("symbol"));
     });
 
     it('should return a symbol for the winner', function() {
-      var newGame = new Game();
-      newGame.players("Mario","Luigi");
-      newGame.play(1); // player 1
-      newGame.play(3); // player 2
+      var daPlayers = ticTacToe.players("Mario","Luigi");
+      ticTacToe.play(1); // player 1
+      ticTacToe.play(3); // player 2
 
-      expect(newGame.hasWon()).toEqual(null);
+      expect(ticTacToe.hasWon()).toEqual(null);
     });
   }); //ending describe hasWon
 
