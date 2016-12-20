@@ -39,8 +39,9 @@ const Game = Backbone.Model.extend({
   }, //close players
 
   play: function(location) {
-    // console.log(this.allPlayers);
-    if (this.get("allPlayers")[0].winner == true || this.get("allPlayers")[1].winner == true) {
+    // console.log(">!>!>!>!>!>!>" + this.get("allPlayers")[0]);
+
+    if (this.get("allPlayers")[0].get("winner") == true || this.get("allPlayers")[1].get("winner") == true) {
       throw new Error("The Game is Over");
     } //close if for error: trying to play when game is over
 

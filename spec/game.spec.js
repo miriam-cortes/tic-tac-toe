@@ -115,58 +115,54 @@ describe('Game', function() {
 
     });
 
-    // it('should not allow a play if there is a winner', function() {
-    //   var ticTacToe = new Game();
-    //   ticTacToe.players("Mario","Luigi");
-    //   ticTacToe.play(1); // player 1
-    //   ticTacToe.play(4); // player 2
-    //   ticTacToe.play(2); // player 1
-    //   ticTacToe.play(5); // player 2
-    //   ticTacToe.play(3); // player 1
-    //
-    //   expect(function() {ticTacToe.play(8)}).toThrow(new Error("The Game is Over"));
-    // });
+    it('should not allow a play if there is a winner', function() {
+      var daPlayers = ticTacToe.players("Mario","Luigi");
+      ticTacToe.play(1); // player 1
+      ticTacToe.play(4); // player 2
+      ticTacToe.play(2); // player 1
+      ticTacToe.play(5); // player 2
+      ticTacToe.play(3); // player 1
 
-    // it('should detect a tie', function() {
-    //   var ticTacToe = new Game();
-    //   ticTacToe.players("Mario","Luigi");
-    //   ticTacToe.play(1); // player 1
-    //   ticTacToe.play(2); // player 2
-    //   ticTacToe.play(5); // player 1
-    //   ticTacToe.play(3); // player 2
-    //   ticTacToe.play(6); // player 1
-    //   ticTacToe.play(4); // player 2
-    //   ticTacToe.play(7); // player 1
-    //   ticTacToe.play(9); // player 2
-    //
-    //   expect(function() {ticTacToe.play(8)}).toThrow(new Error("It's a tie! You both lose."));
-    //
-    // })
+      expect(function() {ticTacToe.play(8)}).toThrow(new Error("The Game is Over"));
+    });
+
+    it('should detect a tie', function() {
+      ticTacToe.players("Mario","Luigi");
+      ticTacToe.play(1); // player 1
+      ticTacToe.play(2); // player 2
+      ticTacToe.play(5); // player 1
+      ticTacToe.play(3); // player 2
+      ticTacToe.play(6); // player 1
+      ticTacToe.play(4); // player 2
+      ticTacToe.play(7); // player 1
+      ticTacToe.play(9); // player 2
+
+      expect(function() {ticTacToe.play(8)}).toThrow(new Error("It's a tie! You both lose."));
+
+    })
   }); // close describe play
 
-  // describe('hasWon', function() {
-  //   it('should return a symbol for the winner', function() {
-  //     var ticTacToe = new Game();
-  //     ticTacToe.players("Mario","Luigi");
-  //     ticTacToe.play(1); // player 1
-  //     ticTacToe.play(3); // player 2
-  //     ticTacToe.play(9); // player 1
-  //     ticTacToe.play(5); // player 2
-  //     ticTacToe.play(7); // player 1
-  //     ticTacToe.play(8); // player 2
-  //     ticTacToe.play(4); // player 1
-  //
-  //     expect(ticTacToe.hasWon()).toEqual(ticTacToe.allPlayers[0].symbol);
-  //   });
-  //
-  //   it('should return a symbol for the winner', function() {
-  //     var ticTacToe = new Game();
-  //     ticTacToe.players("Mario","Luigi");
-  //     ticTacToe.play(1); // player 1
-  //     ticTacToe.play(3); // player 2
-  //
-  //     expect(ticTacToe.hasWon()).toEqual(null);
-  //   });
-  // }); //ending describe hasWon
+  describe('hasWon', function() {
+    it('should return a symbol for the winner', function() {
+      var daPlayers = ticTacToe.players("Mario","Luigi");
+      ticTacToe.play(1); // player 1
+      ticTacToe.play(3); // player 2
+      ticTacToe.play(9); // player 1
+      ticTacToe.play(5); // player 2
+      ticTacToe.play(7); // player 1
+      ticTacToe.play(8); // player 2
+      ticTacToe.play(4); // player 1
+
+      expect(ticTacToe.hasWon()).toEqual(daPlayers[0].get("symbol"));
+    });
+
+    it('should return a symbol for the winner', function() {
+      var daPlayers = ticTacToe.players("Mario","Luigi");
+      ticTacToe.play(1); // player 1
+      ticTacToe.play(3); // player 2
+
+      expect(ticTacToe.hasWon()).toEqual(null);
+    });
+  }); //ending describe hasWon
 
 });// close describe Game class
