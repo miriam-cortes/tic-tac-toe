@@ -1,6 +1,13 @@
 //game.js
 // import Player from 'player';
 // import BoardView from 'app/views/board_view';
+import Game from 'app/models/game';
+import GameView from 'app/views/game_view';
+
+var newGameOfTicTacToe = new GameView({
+  el: '#application',
+  model: game
+});
 
 // var Game = function() {
   // this.board = {

@@ -5,7 +5,7 @@ import Backbone from 'backbone';
 const GameView = Backbone.View.extend({
   initialize: function() {
     console.log("breadcrumb #1");
-    // this.render();
+    this.render();
   }, //close initialize
 
   render: function() {
@@ -16,7 +16,7 @@ const GameView = Backbone.View.extend({
     // })
     // boardView.render();
     //
-    // return this;
+    return this;
   } //close render
 });
 

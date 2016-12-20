@@ -4,7 +4,7 @@ import Backbone from 'backbone';
 import Player from 'app/models/player'
 
 const Game = Backbone.Model.extend({
-  theGame: function() {
+  initialize: function() {
     this.set("board", {
       1: null,
       2: null,
@@ -24,14 +24,12 @@ const Game = Backbone.Model.extend({
       var p1 = new Player({
         name: player1
       });
-      // p1.set("name") = player1;
       p1.set("symbol", "X");
       p1.set("turn", true);
 
       var p2 = new Player({
         name: player2
       });
-      // p2.set("name") = player2;
       p2.set("symbol", "O");
       // p2.set("turn") = false; //don't think I need this bc default is false
 
@@ -50,19 +48,20 @@ const Game = Backbone.Model.extend({
       return this.get("board");
     } //close if stmnt for if space is already taken
 
-    for (var player in this.get("allPlayers")) {
-      if (this.get("allPlayers")[player].turn) {
-        this.get("board")[location] = this.get("allPlayers")[player].symbol
-        this.get("allPlayers")[player].turn = false;
-        if (this.hasWon() == this.get("allPlayers")[player].symbol) {
-          this.get("allPlayers")[player].winner = true;
+    var p = this.get("allPlayers")
+    for (var player in p) {
+      if (p[player].get("turn")) {
+        this.get("board")[location] = p[player].get("symbol")
+        p[player].set("turn", false);
+        if (this.hasWon() == p[player].get("symbol")) {
+          p[player].set("winner", true);
           break;
         }
       } else {
-        this.get("allPlayers")[player].turn = true;
+        p[player].set("turn", true);
       }
     } //close for loop
-    console.log("look at you trying to do stuff in the play function!");
+    // console.log("look at you trying to do stuff in the play function!");
     var nullSpacesLeft = false;
     for (var i = 1; i < 10; i++) {
       if (this.get("board")[i] == null) {
